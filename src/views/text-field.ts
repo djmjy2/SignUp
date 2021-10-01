@@ -1,5 +1,5 @@
 import { nextTick } from '../utils';
-import { ValidateRule } from '../types';
+import { ValidationRule } from '../types';
 import template from './text-field.template';
 import { RequireRule } from '../constant';
 
@@ -26,7 +26,7 @@ export default class TextField {
   private container: string;
   private data: Props;  
   private updated: boolean = false;
-  private validateRules: ValidateRule[] = [];
+  private validateRules: ValidationRule[] = [];
 
   constructor(container: string, data: Props) {
     this.container = container;
@@ -39,7 +39,7 @@ export default class TextField {
     nextTick(this.attachEventHandler);
   }
 
-  private validate = (): ValidateRule | null => {
+  private validate = (): ValidationRule | null => {
     const target = this.data.text ? this.data.text.trim() : '';
 
     const invalidateRules = this.validateRules
@@ -49,7 +49,7 @@ export default class TextField {
   }
 
   private buildData = () => {
-    const isInvalid: ValidateRule | null = this.validate();
+    const isInvalid: ValidationRule | null = this.validate();
 
     if (this.updated) {
       return {
@@ -102,7 +102,7 @@ export default class TextField {
     return !this.validate();
   }
 
-  public addValidateRule = (rule:ValidateRule) => {
+  public addValidateRule = (rule:ValidationRule) => {
     this.validateRules.push(rule);
   }
 
